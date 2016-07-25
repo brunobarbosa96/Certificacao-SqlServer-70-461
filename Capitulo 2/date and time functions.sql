@@ -1,0 +1,28 @@
+-- Date and Time Parts Examples
+
+SELECT DATEPART(day, GETDATE()) AS Dia,
+	   DATEPART(month, '2016-07-25') AS Mes,
+	   DATEPART(year, CURRENT_TIMESTAMP) As Ano
+
+SELECT DATENAME(day, SYSDATETIME()) AS Dia,
+	   DATENAME(month, SYSDATETIMEOFFSET()) AS Mes,
+	   DATENAME(year, '2016-07-25') AS Ano
+
+SELECT DATEFROMPARTS(2016, 07, 25) AS DataPorParte,
+	   SMALLDATETIMEFROMPARTS(2016, 07, 25, 6, 0) AS DataTempoPorParte,
+	   TIMEFROMPARTS(6, 0, 0, 0, 0) AS TempoPorParte
+
+-- DateAdd and DateDiff Examples
+SELECT DATEADD(year, 1, GETDATE()) AS ProximoAno,
+	   DATEADD(month, 2, '2016-07-25') AS DoisMesesDepois,
+	   DATEADD(day, -1, GETDATE()) AS Ontem
+
+SELECT DATEDIFF(year, GETDATE(), DATEADD(year, 5, GETDATE())) AS DiferencaAno,
+	   DATEDIFF(month, '2016-07-25', '2017-07-25') AS DiferencaMes,
+	   DATEDIFF(day, '2016-07-20', GETDATE()) AS DiferencaDia
+
+SELECT EOMONTH('2016-07-25') AS UltimoDiaDoMes
+
+-- Offset
+SELECT SWITCHOFFSET('20130212 14:00:00.0000000 -08:00', '-05:00') AS [SWITCHOFFSET],
+	   TODATETIMEOFFSET('20130212 14:00:00.0000000', '-08:00') AS [TODATETIMEOFFSET]
