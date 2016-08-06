@@ -10,5 +10,6 @@ SELECT EOMONTH(GETDATE()) LastDayOfCurrentMonth,
 	   EOMONTH(DATEFROMPARTS(YEAR(GETDATE()), 12, 01)) AS OtherLastDayOfCurrentYear
 
 SELECT TOP 1 productId,
+	   FORMAT(productid, REPLICATE('0', 10)) AS MyExampleStringProductId,
 	   FORMAT(productid, 'd10') AS stringProductId
 	FROM Production.Products;
