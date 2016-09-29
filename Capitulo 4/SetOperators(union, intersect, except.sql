@@ -15,7 +15,7 @@
 SELECT country,
 	   region,
 	   city
-	FROM HR.Employees
+	FROM HR.Employees	
 
 UNION
 
