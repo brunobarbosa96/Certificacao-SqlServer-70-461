@@ -30,7 +30,7 @@ SELECT S.companyname AS supplier,
 
 
 -- Exemplo LEFT OUTER JOIN ou LEFT JOIN da forma simplificada
--- o left join tras todos os registros da tabela da esquerda independentemente se tem ou não na tabela da direita,
+-- o left join traz todos os registros da tabela da esquerda independentemente se tem ou não na tabela da direita,
 -- quando não encontra registro na segunda tabela o resultado retornado vem null
 -- Exemplo
 
