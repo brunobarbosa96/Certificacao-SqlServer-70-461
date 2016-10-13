@@ -56,3 +56,49 @@ SELECT	shipperid,
 		COUNT(shippeddate) AS numshippingdatesWithoutDistinct
 	FROM Sales.Orders
 	GROUP BY shipperid;
+
+
+-- GROUPING SETS
+-- Grouping sets é nada mais do que poder agrupar na mesma query por vários grupos diferentes ao mesmo tempo
+
+--Exemplo: 
+SELECT	shipperid, 
+		YEAR(shippeddate) AS shipyear, 
+		COUNT(*) AS numorders
+	FROM Sales.Orders
+	GROUP BY GROUPING SETS
+	(
+	( shipperid, YEAR(shippeddate) ),
+	( shipperid ),
+	( YEAR(shippeddate) ),
+	( )
+	);
+
+-- O Grouping Set é uma forma de fazer quaisquer agrupamentos que desejar, porém deve-se passar todos as combinações 
+-- desejadas nos parametros dos sets
+-- o T-SQL fornece mais dois operadores para grouping sets que nos auxilia a agrupar de várias formas sem que tenha que 
+-- ficar informando as operações possíveis.. são eles o CUBE e o ROLLUP
+SELECT	shipperid, 
+		YEAR(shippeddate) AS shipyear, 
+		COUNT(*) AS numorders
+	FROM Sales.Orders
+	GROUP BY CUBE( shipperid, YEAR(shippeddate) );
+
+-- Exemplo para descobrir quando um elemento está agrupado ou não
+SELECT
+		shipcountry, GROUPING(shipcountry) AS grpcountry,
+		shipregion , GROUPING(shipregion) AS grpcountry,
+		shipcity , GROUPING(shipcity) AS grpcountry,
+		COUNT(*) AS numorders
+	FROM Sales.Orders
+	GROUP BY ROLLUP( shipcountry, shipregion, shipcity );
+
+
+-- Grouping_Id retorna o resultado das elementos que estão agrupados através do BITMAP
+SELECT	GROUPING_ID( shipcountry, shipregion, shipcity ) AS grp_id,
+		shipcountry, 
+		shipregion, 
+		shipcity,
+		COUNT(*) AS numorders
+	FROM Sales.Orders
+	GROUP BY ROLLUP( shipcountry, shipregion, shipcity );
